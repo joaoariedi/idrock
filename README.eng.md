@@ -1,259 +1,259 @@
-# idRock MVP - Sistema Acadêmico de Detecção de Fraudes
+# idRock MVP - Academic Fraud Detection System
 
-Um sistema abrangente de detecção de fraudes desenvolvido para demonstração acadêmica e integração no mundo real, com análise de reputação de IP, fingerprinting de dispositivos, análise comportamental e avaliação de risco em tempo real com monitoramento visual através de dashboard.
+A comprehensive fraud detection system built for academic demonstration and real-world integration, featuring IP reputation analysis, device fingerprinting, behavioral analysis, and real-time risk assessment with visual dashboard monitoring.
 
-## Sumário
+## Table of Contents
 
-- [Início Rápido](#início-rápido)
-- [Guia de Apresentação Universitária](#guia-de-apresentação-universitária)
-- [Guia de Integração do SDK](#guia-de-integração-do-sdk)  
-- [Guia de Testes](#guia-de-testes)
-- [Opções de Deploy](#opções-de-deploy)
-- [Arquitetura do Sistema](#arquitetura-do-sistema)
-- [Documentação da API](#documentação-da-api)
-- [Gerenciamento de Containers](#gerenciamento-de-containers)
-- [Solução de Problemas](#solução-de-problemas)
-- [Configuração](#configuração)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Equipe](#equipe)
+- [Quick Start](#quick-start)
+- [College Presentation Guide](#college-presentation-guide)
+- [SDK Integration Guide](#sdk-integration-guide)  
+- [Testing Guide](#testing-guide)
+- [Deployment Options](#deployment-options)
+- [System Architecture](#system-architecture)
+- [API Documentation](#api-documentation)
+- [Container Management](#container-management)
+- [Troubleshooting](#troubleshooting)
+- [Configuration](#configuration)
+- [Project Structure](#project-structure)
+- [Team](#team)
 
-## 🚀 Início Rápido
+## 🚀 Quick Start
 
-### Pré-requisitos
+### Prerequisites
 
-- Docker e Docker Compose
-- Node.js 18+ (para desenvolvimento local)
-- Chave API ProxyCheck.io (opcional, demo funciona sem)
+- Docker and Docker Compose
+- Node.js 18+ (for local development)
+- ProxyCheck.io API key (optional, demo works without)
 
-### Opção 1: Deploy Docker Produção (Recomendado)
+### Option 1: Docker Production Deployment (Recommended)
 
 ```bash
-# Clonar o repositório
+# Clone the repository
 git clone <repository-url> idrock-mvp
 cd idrock-mvp
 
-# Iniciar sistema de produção
+# Start production system
 docker-compose -f docker-compose.production.yml up -d
 
-# ⚠️ IMPORTANTE: Sempre execute limpeza após testes
+# ⚠️ IMPORTANT: Always cleanup after testing
 ./cleanup-containers.sh
 ```
 
-### Opção 2: Desenvolvimento Local
+### Option 2: Local Development
 
 ```bash
-# Instalar dependências
+# Install dependencies
 npm run install:all
 
-# Iniciar API (terminal 1)
+# Start API (terminal 1)
 npm run dev:api
 
-# Iniciar loja demo (terminal 2)
+# Start demo store (terminal 2)
 npm run dev:store
 
-# Acessar em http://localhost:3000
+# Access at http://localhost:3000
 ```
 
-### Opção 3: Desenvolvimento Docker Completo
+### Option 3: Full Docker Development
 
 ```bash
-# Copiar template de ambiente
+# Copy environment template
 cp .env.example .env
 
-# Iniciar sistema de desenvolvimento
+# Start development system
 docker-compose up -d
 
-# ⚠️ OBRIGATÓRIO: Limpeza após testes
+# ⚠️ MANDATORY: Cleanup after testing
 ./cleanup-containers.sh
 ```
 
-### Acessar a Aplicação
+### Access the Application
 
-#### Modo Produção
-- **NexShop Loja Demo**: http://localhost:3000
+#### Production Mode
+- **NexShop Demo Store**: http://localhost:3000
 - **idRock API**: http://localhost:3001/api
-- **Documentação da API**: http://localhost:3001/api/docs
+- **API Documentation**: http://localhost:3001/api/docs
 
-#### Modo Desenvolvimento (com nginx)
-- **NexShop Loja Demo**: http://localhost:8080
+#### Development Mode (with nginx)
+- **NexShop Demo Store**: http://localhost:8080
 - **idRock API**: http://localhost:8080/api
-- **Documentação da API**: http://localhost:8080/api/docs
-- **Dashboard de Risco**: http://localhost:8080/risk-dashboard
+- **API Documentation**: http://localhost:8080/api/docs
+- **Risk Dashboard**: http://localhost:8080/risk-dashboard
 
 ---
 
-## 🎓 Guia de Apresentação Universitária
+## 🎓 College Presentation Guide
 
-Esta seção fornece um fluxo completo de demonstração para avaliação acadêmica e apresentações universitárias.
+This section provides a complete demonstration flow for academic evaluation and college presentations.
 
-### Configuração Pré-Apresentação (5 minutos antes da apresentação)
+### Pre-Presentation Setup (5 minutes before presentation)
 
-1. **Verificação do Ambiente**
+1. **Environment Check**
    ```bash
-   # Garantir ambiente limpo
+   # Ensure clean environment
    ./cleanup-containers.sh
    
-   # Iniciar deploy de produção
+   # Start production deployment
    docker-compose -f docker-compose.production.yml up -d
    
-   # Aguardar serviços ficarem prontos (cerca de 30 segundos)
+   # Wait for services to be ready (about 30 seconds)
    curl http://localhost:3001/api/health
    curl http://localhost:3000
    ```
 
-2. **Configuração do Navegador**
-   - Abrir múltiplas janelas/abas do navegador:
-     - Aba 1: http://localhost:3000 (Loja Demo)
-     - Aba 2: http://localhost:3000/risk-dashboard (Dashboard de Risco)
-     - Aba 3: http://localhost:3001/api/docs (Documentação da API)
+2. **Browser Setup**
+   - Open multiple browser windows/tabs:
+     - Tab 1: http://localhost:3000 (Demo Store)
+     - Tab 2: http://localhost:3000/risk-dashboard (Risk Dashboard)
+     - Tab 3: http://localhost:3001/api/docs (API Documentation)
 
-### Fluxo de Demonstração (15-20 minutos)
+### Demonstration Flow (15-20 minutes)
 
-#### Fase 1: Visão Geral do Sistema (3-4 minutos)
-1. **Introdução**
-   - "Hoje demonstrarei o idRock, um sistema acadêmico de detecção de fraudes"
-   - "Desenvolvido pelo Grupo idRock para prevenção de fraudes em e-commerce no mundo real"
+#### Phase 1: System Overview (3-4 minutes)
+1. **Introduction**
+   - "Today I'll demonstrate idRock, an academic fraud detection system"
+   - "Built by Grupo idRock for real-world e-commerce fraud prevention"
 
-2. **Explicação da Arquitetura** (mostrar aba de docs da API)
-   - "API RESTful com avaliação de risco em tempo real"
-   - "SDK JavaScript para integração fácil"
-   - "Loja demo React mostrando aplicação prática"
+2. **Architecture Explanation** (show API docs tab)
+   - "RESTful API with real-time risk assessment"
+   - "JavaScript SDK for easy integration"
+   - "React demo store showing practical application"
 
-#### Fase 2: Demonstração Ao Vivo de Detecção de Fraudes (8-10 minutos)
+#### Phase 2: Live Fraud Detection Demo (8-10 minutes)
 
-1. **Comportamento Normal do Usuário** (Risco BAIXO)
+1. **Normal User Behavior** (LOW Risk)
    ```bash
-   # Mostrar aba da Loja Demo
-   # Navegar pelos produtos, adicionar itens ao carrinho normalmente
-   # Prosseguir para checkout com informações realistas
+   # Show Demo Store tab
+   # Navigate to products, add items to cart normally
+   # Proceed to checkout with realistic information
    ```
-   - **O que destacar**: Processo de checkout suave, pontuação de risco BAIXA
-   - **Pontos de fala**: "Padrões de comportamento normal resultam em pontuações de risco baixas"
+   - **What to highlight**: Smooth checkout process, LOW risk score
+   - **Speaking points**: "Normal behavior patterns result in low risk scores"
 
-2. **Simulação de Atividade Suspeita** (Risco MÉDIO)
+2. **Suspicious Activity Simulation** (MEDIUM Risk)
    ```bash
-   # Limpar carrinho e iniciar nova sessão
-   # Adicionar rapidamente múltiplos itens de alto valor
-   # Usar endereços de entrega/cobrança suspeitos
-   # Acelerar pelos formulários de checkout
+   # Clear cart and start new session
+   # Quickly add multiple high-value items
+   # Use suspicious shipping/billing addresses
+   # Rush through checkout forms
    ```
-   - **O que destacar**: Aviso de risco MÉDIO, avisos de segurança
-   - **Pontos de fala**: "Sistema detecta velocidade e padrões incomuns"
+   - **What to highlight**: MEDIUM risk warning, security notices
+   - **Speaking points**: "System detects unusual velocity and patterns"
 
-3. **Transação de Alto Risco** (Risco ALTO)
+3. **High-Risk Transaction** (HIGH Risk)
    ```bash
-   # Usar VPN ou navegador tor se disponível
-   # Múltiplas transações rápidas
-   # Informações geográficas incompatíveis
+   # Use VPN or tor browser if available
+   # Multiple rapid transactions
+   # Mismatched geographic information
    ```
-   - **O que destacar**: Bloqueio de risco ALTO, verificação adicional necessária
-   - **Pontos de fala**: "Sistema previne transações potencialmente fraudulentas"
+   - **What to highlight**: HIGH risk blocking, additional verification required
+   - **Speaking points**: "System prevents potentially fraudulent transactions"
 
-#### Fase 3: Análise do Dashboard de Risco (4-5 minutos)
+#### Phase 3: Risk Dashboard Analysis (4-5 minutes)
 
-1. **Monitoramento em Tempo Real** (mostrar aba do Dashboard de Risco)
-   - Análise de transações ao vivo
-   - Tendências e padrões de pontuação de risco
-   - Detalhamento por tipo de ameaça
-   - Status de segurança do sistema
+1. **Real-time Monitoring** (show Risk Dashboard tab)
+   - Live transaction analysis
+   - Risk score trends and patterns
+   - Threat type breakdown
+   - System security status
 
-2. **Explicação da Analítica**
-   - "Dashboard mostra padrões históricos e ameaças em tempo real"
-   - "Múltiplos fatores de risco analisados simultaneamente"
-   - "Monitoramento abrangente de segurança"
+2. **Analytics Explanation**
+   - "Dashboard shows historical patterns and real-time threats"
+   - "Multiple risk factors analyzed simultaneously"
+   - "Comprehensive security monitoring"
 
-#### Fase 4: Integração Técnica (2-3 minutos)
+#### Phase 4: Technical Integration (2-3 minutes)
 
-1. **Integração do SDK** (mostrar docs da API)
-   - Integração JavaScript simples
-   - Endpoints da API RESTful
-   - Capacidades de avaliação em tempo real
+1. **SDK Integration** (show API docs)
+   - Simple JavaScript integration
+   - RESTful API endpoints
+   - Real-time assessment capabilities
 
-2. **Valor Acadêmico**
-   - "Demonstra conceitos de cibersegurança do mundo real"
-   - "Arquitetura escalável para uso em produção"
-   - "Práticas de segurança padrão da indústria"
+2. **Academic Value**
+   - "Demonstrates real-world cybersecurity concepts"
+   - "Scalable architecture for production use"
+   - "Industry-standard security practices"
 
-### Dicas de Apresentação para Sucesso Acadêmico
+### Presentation Tips for Academic Success
 
-#### Para Avaliação Técnica
-- **Enfatizar**: Processamento em tempo real, arquitetura escalável, padrões da indústria
-- **Demonstrar**: Respostas da API, algoritmos de cálculo de risco, medidas de segurança
-- **Explicar**: Decisões técnicas, escolhas de arquitetura, implementações de segurança
+#### For Technical Evaluation
+- **Emphasize**: Real-time processing, scalable architecture, industry standards
+- **Demonstrate**: API responses, risk calculation algorithms, security measures
+- **Explain**: Technical decisions, architecture choices, security implementations
 
-#### Para Avaliação de Negócios  
-- **Focar em**: Prevenção prática de fraudes, economia de custos, experiência do usuário
-- **Mostrar**: Redução de risco, tomada de decisão automatizada, inteligência de negócios
-- **Destacar**: Potencial de ROI, aplicabilidade no mercado, vantagens competitivas
+#### For Business Evaluation  
+- **Focus on**: Practical fraud prevention, cost savings, user experience
+- **Show**: Risk reduction, automated decision making, business intelligence
+- **Highlight**: ROI potential, market applicability, competitive advantages
 
-#### Perguntas Comuns de Avaliação e Respostas
+#### Common Evaluation Questions & Answers
 
-**P: "Quão precisa é a detecção de fraudes?"**
-**R:** "O sistema usa algoritmos ponderados combinando reputação de IP, fingerprinting de dispositivos e análise comportamental. Em nossos testes, alcançamos 85%+ de precisão com mínimos falsos positivos."
+**Q: "How accurate is the fraud detection?"**
+**A:** "The system uses weighted algorithms combining IP reputation, device fingerprinting, and behavioral analysis. In our testing, we achieve 85%+ accuracy with minimal false positives."
 
-**P: "Como isso escala para sites de e-commerce grandes?"**
-**R:** "Construído com Docker e arquitetura de microsserviços. A API pode lidar com 1000+ requisições por minuto, com capacidades de escalonamento horizontal e cache Redis para performance."
+**Q: "How does this scale for large e-commerce sites?"**
+**A:** "Built with Docker and microservices architecture. API can handle 1000+ requests per minute, with horizontal scaling capabilities and Redis caching for performance."
 
-**P: "O que torna isso diferente das soluções existentes?"**
-**R:** "Avaliação em tempo real em menos de 50ms, dashboard de risco abrangente, integração fácil do SDK e foco no mercado brasileiro com considerações de conformidade com a LGPD."
+**Q: "What makes this different from existing solutions?"**
+**A:** "Real-time assessment in under 50ms, comprehensive risk dashboard, easy SDK integration, and Brazilian market focus with LGPD compliance considerations."
 
-### Limpeza Pós-Apresentação
+### Post-Presentation Cleanup
 
 ```bash
-# OBRIGATÓRIO: Sempre limpar após a apresentação
+# MANDATORY: Always clean up after presentation
 docker-compose -f docker-compose.production.yml down --volumes --remove-orphans
 ./cleanup-containers.sh
 
-# Verificar limpeza
-docker ps -a | grep -E "idrock|nexshop" || echo "✅ Limpo!"
+# Verify cleanup
+docker ps -a | grep -E "idrock|nexshop" || echo "✅ Clean!"
 ```
 
 ---
 
-## 🔌 Guia de Integração do SDK
+## 🔌 SDK Integration Guide
 
-Guia completo para integrar a detecção de fraudes idRock em aplicações existentes.
+Complete guide for integrating idRock fraud detection into existing applications.
 
-### Integração Básica
+### Basic Integration
 
-#### 1. Instalação
+#### 1. Installation
 
 ```bash
-# Instalação via npm (quando publicado)
+# npm installation (when published)
 npm install idrock-sdk
 
-# Ou incluir diretamente via CDN
+# Or include directly from CDN
 <script src="https://cdn.jsdelivr.net/npm/idrock-sdk/dist/idrock.min.js"></script>
 ```
 
-#### 2. Configuração Básica
+#### 2. Basic Setup
 
 ```javascript
-// Módulos ES6
+// ES6 Modules
 import { IdRockSDK } from 'idrock-sdk';
 
 // CommonJS
 const { IdRockSDK } = require('idrock-sdk');
 
-// Global do Navegador
+// Browser Global
 const idRockSDK = new window.IdRockSDK({
-  apiKey: 'sua-chave-api',
-  apiUrl: 'https://sua-url-api.com/api',
+  apiKey: 'your-api-key',
+  apiUrl: 'https://your-api-url.com/api',
   debug: false
 });
 ```
 
-#### 3. Inicializar Sessão
+#### 3. Initialize Session
 
 ```javascript
-// Inicializar sessão do usuário
+// Initialize user session
 const sessionId = await idRockSDK.initializeSession();
-console.log('Sessão inicializada:', sessionId);
+console.log('Session initialized:', sessionId);
 ```
 
-### Exemplos de Integração Avançada
+### Advanced Integration Examples
 
-#### Integração de Checkout E-commerce
+#### E-commerce Checkout Integration
 
 ```javascript
 class CheckoutSecurityManager {
@@ -1403,9 +1403,9 @@ tar -czf config_backup_$(date +%Y%m%d).tar.gz \
 
 ---
 
-## 🏗️ Arquitetura do Sistema
+## 🏗️ System Architecture
 
-Visão abrangente da arquitetura do sistema idRock MVP e interações entre componentes.
+Comprehensive overview of the idRock MVP system architecture and component interactions.
 
 ### High-Level Architecture
 
@@ -2213,9 +2213,9 @@ docker run --rm -v idrock_app_data:/data -v $(pwd):/backup alpine tar czf /backu
 
 ---
 
-## 🔧 Solução de Problemas
+## 🔧 Troubleshooting
 
-Problemas comuns e soluções para desenvolvimento, testes e deploy.
+Common issues and solutions for development, testing, and deployment.
 
 ### Quick Diagnostics
 
@@ -2614,9 +2614,9 @@ For additional help, check:
 - API Documentation: http://localhost:3001/api/docs
 - Container Logs: `docker-compose logs -f`
 
-## 🔧 Configuração
+## 🔧 Configuration
 
-### Variáveis de Ambiente
+### Environment Variables
 
 Create a `.env` file based on `.env.example`:
 
@@ -2635,9 +2635,9 @@ REACT_APP_IDROCK_API_URL=http://localhost:3001/api
 SQLITE_DB_PATH=./data/idrock.db
 ```
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
-Visão completa da organização do sistema idRock MVP e componentes.
+Complete overview of the idRock MVP system organization and components.
 
 ```
 idrock-mvp/
@@ -2831,143 +2831,143 @@ docker-compose -f docker-compose.production.yml up -d
 7. **Scalability**: Architecture supports horizontal and vertical scaling
 8. **Maintainability**: Clean code practices and consistent patterns throughout
 
-## 👥 Equipe
+## 👥 Team
 
 **Grupo idRock** - FIAP (2TDCOB)
 
-### Membros da Equipe e Especializações
+### Team Members & Specializations
 
-| Membro | Função | Responsabilidades | Especialidade |
+| Member | Role | Responsibilities | Expertise |
 |---------|------|------------------|-----------|
-| **João Carlos Ariedi Filho** | Líder do Projeto e Arquiteto Backend | Desenvolvimento de API, algoritmos de avaliação de risco, arquitetura do sistema | Node.js, Express, APIs REST, Design de Banco de Dados |
-| **Raphael Hideyuki Uematsu** | Desenvolvedor Frontend e Engenheiro SDK | Aplicação React, SDK JavaScript, design de interface de usuário | React, JavaScript, UI/UX, Desenvolvimento SDK |
-| **Tiago Elusardo Marques** | Especialista em Integração e Engenheiro QA | Integração de APIs externas, automação de testes, garantia de qualidade | Integração de APIs, Testes, ProxyCheck.io |
-| **Lucas Mazzaferro Dias** | Engenheiro DevOps e Infraestrutura | Containerização Docker, deploy, CI/CD, monitoramento de sistemas | Docker, DevOps, Infraestrutura, Deploy |
+| **João Carlos Ariedi Filho** | Project Lead & Backend Architect | API development, risk assessment algorithms, system architecture | Node.js, Express, REST APIs, Database Design |
+| **Raphael Hideyuki Uematsu** | Frontend Developer & SDK Engineer | React application, JavaScript SDK, user interface design | React, JavaScript, UI/UX, SDK Development |
+| **Tiago Elusardo Marques** | Integration Specialist & QA Engineer | External API integration, testing automation, quality assurance | API Integration, Testing, ProxyCheck.io |
+| **Lucas Mazzaferro Dias** | DevOps Engineer & Infrastructure | Docker containerization, deployment, CI/CD, system monitoring | Docker, DevOps, Infrastructure, Deployment |
 
-### Instituição Acadêmica
-- **Universidade**: FIAP (Faculdade de Informática e Administração Paulista)
-- **Curso**: 2TDCOB (Tecnologia em Desenvolvimento de Software)
-- **Tipo de Projeto**: MVP (Produto Mínimo Viável) para demonstração acadêmica
-- **Ano Letivo**: 2024
+### Academic Institution
+- **University**: FIAP (Faculdade de Informática e Administração Paulista)
+- **Course**: 2TDCOB (Tecnologia em Desenvolvimento de Software)
+- **Project Type**: MVP (Minimum Viable Product) for academic demonstration
+- **Academic Year**: 2024
 
-### Cronograma de Desenvolvimento do Projeto
-- **Fase de Planejamento**: Análise de requisitos e design do sistema
-- **Fase de Desenvolvimento**: Desenvolvimento iterativo com sprints semanais
-- **Fase de Testes**: Testes abrangentes e garantia de qualidade
-- **Fase de Documentação**: Documentação completa e preparação da apresentação
-- **Fase de Apresentação**: Avaliação acadêmica e demonstração
+### Project Development Timeline
+- **Planning Phase**: Requirements analysis and system design
+- **Development Phase**: Iterative development with weekly sprints
+- **Testing Phase**: Comprehensive testing and quality assurance
+- **Documentation Phase**: Complete documentation and presentation preparation
+- **Presentation Phase**: Academic evaluation and demonstration
 
-### Ferramentas de Colaboração da Equipe
-- **Controle de Versão**: Git com fluxo de trabalho colaborativo
-- **Comunicação**: Reuniões regulares da equipe e revisões de progresso
-- **Desenvolvimento**: Programação em pares e revisões de código
-- **Testes**: Testes colaborativos e validação de qualidade
-- **Documentação**: Autoria compartilhada de documentação
-
----
-
-## 📄 Licença
-
-Licença MIT - Veja [LICENSE](LICENSE) para detalhes.
-
-É concedida permissão, gratuitamente, a qualquer pessoa que obtenha uma cópia deste software e arquivos de documentação associados (o "Software"), para lidar com o Software sem restrição, incluindo, sem limitação, os direitos de usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar e/ou vender cópias do Software.
+### Team Collaboration Tools
+- **Version Control**: Git with collaborative workflow
+- **Communication**: Regular team meetings and progress reviews
+- **Development**: Pair programming and code reviews
+- **Testing**: Collaborative testing and quality validation
+- **Documentation**: Shared documentation authoring
 
 ---
 
-## 🎓 Aviso de Uso Acadêmico
+## 📄 License
 
-Este sistema é projetado especificamente para **fins de demonstração acadêmica** como parte de um projeto MVP universitário. Embora implemente conceitos reais de detecção de fraudes e se integre com serviços reais (ProxyCheck.io), não deve ser usado em ambientes de produção sem auditorias de segurança adequadas e melhorias.
+MIT License - See [LICENSE](LICENSE) for details.
 
-### Contexto Acadêmico
-- **Propósito Educacional**: Demonstra conceitos de cibersegurança e detecção de fraudes
-- **Aplicação no Mundo Real**: Mostra implementação prática de conhecimento teórico  
-- **Integração Tecnológica**: Combina múltiplas tecnologias modernas em um sistema coeso
-- **Padrões Profissionais**: Segue melhores práticas da indústria e padrões de codificação
-
-### Considerações para Produção
-Se adaptar este sistema para uso em produção, considere:
-- Auditoria abrangente de segurança
-- Otimização de performance para escala
-- Tratamento de erros e monitoramento aprimorados
-- Conformidade regulatória (LGPD, GDPR, etc.)
-- Gerenciamento profissional de chaves de API
-- Soluções de banco de dados nível produção
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.
 
 ---
 
-## 🔗 Recursos Relacionados e Referências
+## 🎓 Academic Use Notice
 
-### APIs e Serviços Externos
-- [Documentação da API ProxyCheck.io](https://proxycheck.io/api/) - Reputação de IP e detecção de proxy
-- [Documentação FingerprintJS](https://github.com/fingerprintjs/fingerprintjs) - Fingerprinting de navegador
+This system is designed specifically for **academic demonstration purposes** as part of a college MVP project. While it implements real fraud detection concepts and integrates with actual services (ProxyCheck.io), it should not be used in production environments without proper security audits and enhancements.
 
-### Conformidade e Segurança
-- [Guia de Conformidade LGPD](https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd) - Leis brasileiras de proteção de dados
-- [Prevenção de Fraudes OWASP](https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks) - Melhores práticas de segurança
-- [Framework de Cibersegurança NIST](https://www.nist.gov/cyberframework) - Padrões de cibersegurança
+### Academic Context
+- **Educational Purpose**: Demonstrates cybersecurity and fraud detection concepts
+- **Real-world Application**: Shows practical implementation of theoretical knowledge  
+- **Technology Integration**: Combines multiple modern technologies in a cohesive system
+- **Professional Standards**: Follows industry best practices and coding standards
 
-### Documentação de Tecnologias  
-- [Documentação Node.js](https://nodejs.org/en/docs/) - Ambiente de execução backend
-- [Documentação React](https://reactjs.org/docs/) - Framework frontend
-- [Documentação Docker](https://docs.docker.com/) - Plataforma de containerização
-- [Guia Express.js](https://expressjs.com/en/guide/) - Framework web para Node.js
-
-### Referências Acadêmicas
-- [Detecção de Fraudes em E-commerce](https://www.researchgate.net/publication/fraud-detection) - Pesquisa acadêmica
-- [Machine Learning para Detecção de Fraudes](https://dl.acm.org/doi/fraud-ml) - Abordagens de ML para prevenção de fraudes
-- [Melhores Práticas de Cibersegurança](https://www.sans.org/white-papers/) - Diretrizes de segurança da indústria
+### Production Considerations
+If adapting this system for production use, consider:
+- Comprehensive security auditing
+- Performance optimization for scale
+- Enhanced error handling and monitoring
+- Regulatory compliance (LGPD, GDPR, etc.)
+- Professional API key management
+- Production-grade database solutions
 
 ---
 
-## 🚀 Lista de Verificação para Iniciar
+## 🔗 Related Resources & References
 
-Para novos usuários e avaliadores, siga esta lista de verificação:
+### External APIs & Services
+- [ProxyCheck.io API Documentation](https://proxycheck.io/api/) - IP reputation and proxy detection
+- [FingerprintJS Documentation](https://github.com/fingerprintjs/fingerprintjs) - Browser fingerprinting
 
-### Verificação de Pré-requisitos
-- [ ] Docker e Docker Compose instalados
-- [ ] Node.js 18+ instalado (para desenvolvimento local)
-- [ ] Git instalado para controle de versão
-- [ ] Navegador web moderno (Chrome, Firefox, Safari)
-- [ ] 4GB+ de RAM disponível para containers Docker
+### Compliance & Security
+- [LGPD Compliance Guide](https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd) - Brazilian data protection laws
+- [OWASP Fraud Prevention](https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks) - Security best practices
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework) - Cybersecurity standards
 
-### Início Rápido (5 minutos)
-- [ ] Clonar o repositório
-- [ ] Copiar `.env.example` para `.env`
-- [ ] Executar `docker-compose -f docker-compose.production.yml up -d`
-- [ ] Visitar `http://localhost:3000` para loja demo
-- [ ] Visitar `http://localhost:3000/risk-dashboard` para analytics
-- [ ] **OBRIGATÓRIO**: Executar `./cleanup-containers.sh` quando terminar
+### Technology Documentation  
+- [Node.js Documentation](https://nodejs.org/en/docs/) - Backend runtime environment
+- [React Documentation](https://reactjs.org/docs/) - Frontend framework
+- [Docker Documentation](https://docs.docker.com/) - Containerization platform
+- [Express.js Guide](https://expressjs.com/en/guide/) - Web framework for Node.js
 
-### Para Apresentação Acadêmica
-- [ ] Revisar seção [Guia de Apresentação Universitária](#guia-de-apresentação-universitária)
-- [ ] Testar todos os cenários de demonstração
-- [ ] Verificar se todos os serviços estão saudáveis
-- [ ] Preparar pontos de fala da documentação
-- [ ] Ter comandos de solução de problemas prontos
-
-### Para Desenvolvimento
-- [ ] Seguir seção [Configuração de Desenvolvimento Local](#desenvolvimento-local)
-- [ ] Executar todas as suítes de teste para verificar funcionalidade
-- [ ] Revisar estrutura do código e arquitetura
-- [ ] Configurar variáveis de ambiente de desenvolvimento
-- [ ] Entender o algoritmo de avaliação de risco
-
-### Para Integração
-- [ ] Revisar seção [Guia de Integração do SDK](#guia-de-integração-do-sdk)
-- [ ] Estudar documentação da API e exemplos
-- [ ] Entender autenticação e limitação de taxa
-- [ ] Testar cenários de integração
-- [ ] Revisar considerações de segurança
+### Academic References
+- [Fraud Detection in E-commerce](https://www.researchgate.net/publication/fraud-detection) - Academic research
+- [Machine Learning for Fraud Detection](https://dl.acm.org/doi/fraud-ml) - ML approaches to fraud prevention
+- [Cybersecurity Best Practices](https://www.sans.org/white-papers/) - Industry security guidelines
 
 ---
 
-**⚡ Construído com tecnologias web modernas para demonstração acadêmica**
+## 🚀 Getting Started Checklist
 
-**🔒 Implementa técnicas de detecção de fraudes padrão da indústria**  
+For new users and evaluators, follow this checklist:
 
-**📚 Documentação abrangente para avaliação acadêmica**
+### Prerequisites Verification
+- [ ] Docker and Docker Compose installed
+- [ ] Node.js 18+ installed (for local development)
+- [ ] Git installed for version control
+- [ ] Modern web browser (Chrome, Firefox, Safari)
+- [ ] 4GB+ available RAM for Docker containers
 
-**🧪 Testado exaustivamente com garantia de qualidade automatizada**
+### Quick Start (5 minutes)
+- [ ] Clone the repository
+- [ ] Copy `.env.example` to `.env`
+- [ ] Run `docker-compose -f docker-compose.production.yml up -d`
+- [ ] Visit `http://localhost:3000` for demo store
+- [ ] Visit `http://localhost:3000/risk-dashboard` for analytics
+- [ ] **MANDATORY**: Run `./cleanup-containers.sh` when done
+
+### For Academic Presentation
+- [ ] Review [College Presentation Guide](#college-presentation-guide) section
+- [ ] Test all demonstration scenarios
+- [ ] Verify all services are healthy
+- [ ] Prepare speaking points from documentation
+- [ ] Have troubleshooting commands ready
+
+### For Development
+- [ ] Follow [Local Development Setup](#local-development-setup) section
+- [ ] Run all test suites to verify functionality
+- [ ] Review code structure and architecture
+- [ ] Set up development environment variables
+- [ ] Understand the risk assessment algorithm
+
+### For Integration
+- [ ] Review [SDK Integration Guide](#sdk-integration-guide) section
+- [ ] Study API documentation and examples
+- [ ] Understand authentication and rate limiting
+- [ ] Test integration scenarios
+- [ ] Review security considerations
+
+---
+
+**⚡ Built with modern web technologies for academic demonstration**
+
+**🔒 Implements industry-standard fraud detection techniques**  
+
+**📚 Comprehensive documentation for academic evaluation**
+
+**🧪 Thoroughly tested with automated quality assurance**
 
 ---
 
