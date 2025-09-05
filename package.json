@@ -1,0 +1,62 @@
+{
+  "name": "idrock-mvp",
+  "version": "1.0.0",
+  "description": "idRock MVP - Academic Fraud Detection System",
+  "private": true,
+  "workspaces": [
+    "sdk",
+    "api",
+    "demo-store"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm run install:sdk && npm run install:api && npm run install:store",
+    "install:sdk": "cd sdk && npm install",
+    "install:api": "cd api && npm install",
+    "install:store": "cd demo-store && npm install",
+    "build:all": "npm run build:sdk && npm run build:api && npm run build:store",
+    "build:sdk": "cd sdk && npm run build",
+    "build:api": "cd api && echo 'No build step for API'",
+    "build:store": "cd demo-store && npm run build",
+    "dev:sdk": "cd sdk && npm run dev",
+    "dev:api": "cd api && npm run dev",
+    "dev:store": "cd demo-store && npm start",
+    "test:all": "npm run test:sdk && npm run test:api && npm run test:store",
+    "test:sdk": "cd sdk && npm test",
+    "test:api": "cd api && npm test",
+    "test:store": "cd demo-store && npm test -- --watchAll=false",
+    "lint:all": "npm run lint:sdk && npm run lint:api && npm run lint:store",
+    "lint:sdk": "cd sdk && npm run lint",
+    "lint:api": "cd api && npm run lint",
+    "lint:store": "cd demo-store && npm run lint",
+    "format:all": "npm run format:sdk && npm run format:api && npm run format:store",
+    "format:sdk": "cd sdk && npm run format",
+    "format:api": "cd api && npm run format",
+    "format:store": "cd demo-store && npm run format",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "start": "docker-compose up"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "fraud-detection",
+    "cybersecurity",
+    "mvp",
+    "academic-project",
+    "docker",
+    "microservices"
+  ],
+  "author": "Grupo idRock (João Carlos Ariedi Filho, Raphael Hideyuki Uematsu, Tiago Elusardo Marques, Lucas Mazzaferro Dias)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grupo-idrock/idrock-mvp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/grupo-idrock/idrock-mvp/issues"
+  },
+  "homepage": "https://github.com/grupo-idrock/idrock-mvp#readme"
+}
