@@ -82,131 +82,16 @@ docker-compose up -d
 
 ---
 
-## 📊 Guia de Demonstração Empresarial
+## 📋 Apresentações Empresariais
 
-Esta seção fornece um fluxo completo de demonstração para apresentações a clientes, reuniões com investidores e avaliações empresariais.
+Para demos de clientes, apresentações empresariais e reuniões com investidores, consulte nosso **[Guia de Apresentação Empresarial](presentation.md)** completo.
 
-### Configuração Pré-Demonstração (5 minutos antes da apresentação ao cliente)
-
-1. **Verificação do Ambiente**
-   ```bash
-   # Garantir ambiente limpo
-   ./cleanup-containers.sh
-   
-   # Iniciar deploy de produção
-   docker-compose -f docker-compose.production.yml up -d
-   
-   # Aguardar serviços ficarem prontos (cerca de 30 segundos)
-   curl http://localhost:3001/api/health
-   curl http://localhost:3000
-   ```
-
-2. **Configuração do Navegador**
-   - Abrir múltiplas janelas/abas do navegador:
-     - Aba 1: http://localhost:3000 (Loja Demo)
-     - Aba 2: http://localhost:3000/risk-dashboard (Dashboard de Risco)
-     - Aba 3: http://localhost:3001/api/docs (Documentação da API)
-
-### Fluxo de Demonstração Empresarial (15-20 minutos)
-
-#### Fase 1: Visão Geral da Plataforma (3-4 minutos)
-1. **Introdução**
-   - "Hoje demonstrarei o idRock, nossa plataforma empresarial de detecção de fraudes"
-   - "Desenvolvida pela equipe idRock para prevenção de fraudes em e-commerce de produção em escala"
-
-2. **Explicação da Arquitetura** (mostrar aba de docs da API)
-   - "API RESTful com avaliação de risco em tempo real"
-   - "SDK JavaScript para integração fácil"
-   - "Loja demo React mostrando aplicação prática"
-
-#### Fase 2: Demonstração Ao Vivo de Detecção de Fraudes (8-10 minutos)
-
-1. **Comportamento Normal do Usuário** (Risco BAIXO)
-   ```bash
-   # Mostrar aba da Loja Demo
-   # Navegar pelos produtos, adicionar itens ao carrinho normalmente
-   # Prosseguir para checkout com informações realistas
-   ```
-   - **O que destacar**: Processo de checkout suave, pontuação de risco BAIXA
-   - **Pontos de fala**: "Padrões de comportamento normal resultam em pontuações de risco baixas"
-
-2. **Simulação de Atividade Suspeita** (Risco MÉDIO)
-   ```bash
-   # Limpar carrinho e iniciar nova sessão
-   # Adicionar rapidamente múltiplos itens de alto valor
-   # Usar endereços de entrega/cobrança suspeitos
-   # Acelerar pelos formulários de checkout
-   ```
-   - **O que destacar**: Aviso de risco MÉDIO, avisos de segurança
-   - **Pontos de fala**: "Sistema detecta velocidade e padrões incomuns"
-
-3. **Transação de Alto Risco** (Risco ALTO)
-   ```bash
-   # Usar VPN ou navegador tor se disponível
-   # Múltiplas transações rápidas
-   # Informações geográficas incompatíveis
-   ```
-   - **O que destacar**: Bloqueio de risco ALTO, verificação adicional necessária
-   - **Pontos de fala**: "Sistema previne transações potencialmente fraudulentas"
-
-#### Fase 3: Análise do Dashboard de Risco (4-5 minutos)
-
-1. **Monitoramento em Tempo Real** (mostrar aba do Dashboard de Risco)
-   - Análise de transações ao vivo
-   - Tendências e padrões de pontuação de risco
-   - Detalhamento por tipo de ameaça
-   - Status de segurança do sistema
-
-2. **Explicação da Analítica**
-   - "Dashboard mostra padrões históricos e ameaças em tempo real"
-   - "Múltiplos fatores de risco analisados simultaneamente"
-   - "Monitoramento abrangente de segurança"
-
-#### Fase 4: Integração Técnica (2-3 minutos)
-
-1. **Integração do SDK** (mostrar docs da API)
-   - Integração JavaScript simples
-   - Endpoints da API RESTful
-   - Capacidades de avaliação em tempo real
-
-2. **Valor Empresarial**
-   - "Reduz perdas por fraude em até 85% minimizando falsos positivos"
-   - "Arquitetura enterprise-ready com escalabilidade comprovada"
-   - "Práticas de segurança testadas em produção com conformidade regulatória"
-
-### Dicas de Apresentação para Sucesso Empresarial
-
-#### Para Decisores Técnicos
-- **Enfatizar**: Processamento em tempo real sub-50ms, escalabilidade horizontal, integração empresarial
-- **Demonstrar**: Performance da API, algoritmos ML de risco, arquitetura de segurança
-- **Explicar**: Decisões de stack tecnológico, flexibilidade de deployment, capacidades de integração
-
-#### Para Stakeholders de Negócios  
-- **Focar em**: Redução de perdas por fraude, eficiência operacional, melhoria da experiência do cliente
-- **Mostrar**: Métricas de ROI, tomada de decisão automatizada, analytics abrangentes
-- **Destacar**: Proteção de receita, vantagens competitivas de mercado, prontidão para compliance"
-
-#### Perguntas Comuns de Clientes e Respostas Empresariais
-
-**P: "Qual é o ROI e quão rapidamente podemos ver resultados?"**
-**R:** "Nossos clientes normalmente veem redução de 60-85% nas perdas por fraude dentro de 30 dias após o deployment. A plataforma se paga através de transações fraudulentas prevenidas, com a maioria das empresas vendo ROI positivo em 90 dias."
-
-**P: "Como isso lida com tráfego e escala de nível empresarial?"**
-**R:** "Testado em produção para lidar com 10.000+ requisições por minuto com tempos de resposta sub-50ms. Construído em microsserviços containerizados com capacidades de auto-scaling. Clientes empresariais atuais processam milhões de transações mensalmente."
-
-**P: "Qual é sua vantagem competitiva sobre soluções de fraude estabelecidas?"**
-**R:** "Avaliação em tempo real sub-50ms, SLA de 99.9% uptime, business intelligence abrangente, integração seamless e expertise especializada em mercados emergentes com compliance regulatório completo incluindo LGPD, GDPR e PCI DSS."
-
-### Limpeza Pós-Demonstração
-
-```bash
-# OBRIGATÓRIO: Sempre limpar após a apresentação
-docker-compose -f docker-compose.production.yml down --volumes --remove-orphans
-./cleanup-containers.sh
-
-# Verificar limpeza
-docker ps -a | grep -E "idrock|nexshop" || echo "✅ Limpo!"
-```
+Este guia dedicado inclui:
+- Fluxo completo de demonstração e instruções de configuração
+- Pontos de fala para diferentes audiências
+- Cálculos de ROI e business cases
+- Respostas para Q&A de clientes
+- Procedimentos de limpeza pós-demo
 
 ---
 

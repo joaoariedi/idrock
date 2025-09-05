@@ -5,7 +5,7 @@ A production-ready, enterprise-grade fraud detection platform designed for comme
 ## Table of Contents
 
 - [Quick Start](#quick-start)
-- [Business Demo Guide](#business-demo-guide)
+- [Business Presentations](presentation.eng.md) - For client demos and business presentations
 - [SDK Integration Guide](#sdk-integration-guide)  
 - [Testing Guide](#testing-guide)
 - [Deployment Options](#deployment-options)
@@ -80,133 +80,16 @@ docker-compose up -d
 - **API Documentation**: http://localhost:8080/api/docs
 - **Risk Dashboard**: http://localhost:8080/risk-dashboard
 
----
+## 📋 Business Presentations
 
-## 📊 Business Demo Guide
+For client demos, business presentations, and investor meetings, see our comprehensive **[Business Presentation Guide](presentation.eng.md)**.
 
-This section provides a complete demonstration flow for client presentations, investor meetings, and enterprise evaluations.
-
-### Pre-Demo Setup (5 minutes before client presentation)
-
-1. **Environment Check**
-   ```bash
-   # Ensure clean environment
-   ./cleanup-containers.sh
-   
-   # Start production deployment
-   docker-compose -f docker-compose.production.yml up -d
-   
-   # Wait for services to be ready (about 30 seconds)
-   curl http://localhost:3001/api/health
-   curl http://localhost:3000
-   ```
-
-2. **Browser Setup**
-   - Open multiple browser windows/tabs:
-     - Tab 1: http://localhost:3000 (Demo Store)
-     - Tab 2: http://localhost:3000/risk-dashboard (Risk Dashboard)
-     - Tab 3: http://localhost:3001/api/docs (API Documentation)
-
-### Business Demonstration Flow (15-20 minutes)
-
-#### Phase 1: Platform Overview (3-4 minutes)
-1. **Introduction**
-   - "Today I'll demonstrate idRock, our enterprise fraud detection platform"
-   - "Built by the idRock team for production e-commerce fraud prevention at scale"
-
-2. **Architecture Explanation** (show API docs tab)
-   - "RESTful API with real-time risk assessment"
-   - "JavaScript SDK for easy integration"
-   - "React demo store showing practical application"
-
-#### Phase 2: Live Fraud Detection Demo (8-10 minutes)
-
-1. **Normal User Behavior** (LOW Risk)
-   ```bash
-   # Show Demo Store tab
-   # Navigate to products, add items to cart normally
-   # Proceed to checkout with realistic information
-   ```
-   - **What to highlight**: Smooth checkout process, LOW risk score
-   - **Speaking points**: "Normal behavior patterns result in low risk scores"
-
-2. **Suspicious Activity Simulation** (MEDIUM Risk)
-   ```bash
-   # Clear cart and start new session
-   # Quickly add multiple high-value items
-   # Use suspicious shipping/billing addresses
-   # Rush through checkout forms
-   ```
-   - **What to highlight**: MEDIUM risk warning, security notices
-   - **Speaking points**: "System detects unusual velocity and patterns"
-
-3. **High-Risk Transaction** (HIGH Risk)
-   ```bash
-   # Use VPN or tor browser if available
-   # Multiple rapid transactions
-   # Mismatched geographic information
-   ```
-   - **What to highlight**: HIGH risk blocking, additional verification required
-   - **Speaking points**: "System prevents potentially fraudulent transactions"
-
-#### Phase 3: Risk Dashboard Analysis (4-5 minutes)
-
-1. **Real-time Monitoring** (show Risk Dashboard tab)
-   - Live transaction analysis
-   - Risk score trends and patterns
-   - Threat type breakdown
-   - System security status
-
-2. **Analytics Explanation**
-   - "Dashboard shows historical patterns and real-time threats"
-   - "Multiple risk factors analyzed simultaneously"
-   - "Comprehensive security monitoring"
-
-#### Phase 4: Technical Integration (2-3 minutes)
-
-1. **SDK Integration** (show API docs)
-   - Simple JavaScript integration
-   - RESTful API endpoints
-   - Real-time assessment capabilities
-
-2. **Business Value**
-   - "Reduces fraud losses by up to 85% while minimizing false positives"
-   - "Enterprise-ready architecture with proven scalability"
-   - "Production-tested security practices with regulatory compliance"
-
-### Client Presentation Tips for Business Success
-
-#### For Technical Decision Makers
-- **Emphasize**: Real-time processing under 50ms, horizontal scalability, enterprise integration
-- **Demonstrate**: API performance, ML-powered risk algorithms, security architecture
-- **Explain**: Technology stack decisions, deployment flexibility, integration capabilities
-
-#### For Business Stakeholders  
-- **Focus on**: Fraud loss reduction, operational efficiency, customer experience improvement
-- **Show**: ROI metrics, automated decision making, comprehensive analytics
-- **Highlight**: Revenue protection, market competitive advantages, compliance readiness
-
-#### Common Client Questions & Business Responses
-
-**Q: "What's the ROI and how quickly can we see results?"**
-**A:** "Our clients typically see 60-85% reduction in fraud losses within 30 days of deployment. The platform pays for itself through prevented fraudulent transactions, with most enterprises seeing positive ROI within 90 days."
-
-**Q: "How does this handle enterprise-level traffic and scale?"**
-**A:** "Production-tested to handle 10,000+ requests per minute with sub-50ms response times. Built on containerized microservices with auto-scaling capabilities. Current enterprise clients process millions of transactions monthly."
-
-**Q: "What's your competitive advantage over established fraud solutions?"**
-**A:** "Real-time assessment under 50ms, 99.9% uptime SLA, comprehensive business intelligence, seamless integration, and specialized expertise in emerging markets with full regulatory compliance including LGPD, GDPR, and PCI DSS."
-
-### Post-Demo Cleanup
-
-```bash
-# MANDATORY: Always clean up after presentation
-docker-compose -f docker-compose.production.yml down --volumes --remove-orphans
-./cleanup-containers.sh
-
-# Verify cleanup
-docker ps -a | grep -E "idrock|nexshop" || echo "✅ Clean!"
-```
+This dedicated guide includes:
+- Complete demo flow and setup instructions
+- Speaking points for different audiences
+- ROI calculations and business cases
+- Client Q&A responses
+- Post-demo cleanup procedures
 
 ---
 
